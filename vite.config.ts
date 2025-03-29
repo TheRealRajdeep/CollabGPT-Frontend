@@ -6,8 +6,12 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    outDir: 'dist'
+  },
   preview: {
-    allowedHosts: ['collabgpt-frontend-production.up.railway.app']
+    port: 8080,
+    allowedHosts: ['*']
   },
   resolve: {
     alias: {
