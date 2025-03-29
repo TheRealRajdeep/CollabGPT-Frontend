@@ -10,7 +10,7 @@ export default defineConfig({
     outDir: 'dist'
   },
   preview: {
-    port: 8080,
+    port: process.env.PORT ? parseInt(process.env.PORT) : 8080,
     allowedHosts: ['*']
   },
   resolve: {
