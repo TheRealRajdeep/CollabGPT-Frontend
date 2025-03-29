@@ -1,0 +1,21 @@
+/* Fix for dropdown menu positioning and z-index issues */
+.dropdown-container {
+  position: relative;
+  z-index: 50;
+}
+
+/* Ensure dropdown triggers are always clickable */
+[data-radix-dropdown-trigger] {
+  z-index: 20;
+  position: relative;
+}
+
+/* Ensure menu items are clickable */
+[role="menuitem"] {
+  cursor: pointer !important;
+}
+
+/* Higher z-index for dropdown menus */
+[role="menu"] {
+  z-index: 1000 !important;
+}
