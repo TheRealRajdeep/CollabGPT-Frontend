@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "./ui/alert-dialog";
-import { deleteUserChat } from "@/lib/socket";
+import { createRoom, deleteUserChat } from "@/lib/socket";
 
 interface ChatHistoryProps {
     user: User | null;
@@ -119,7 +119,6 @@ export default function ChatHistory({ user, currentRoomId, onRoomSelect }: ChatH
             if (isLastChat) {
                 try {
                     console.log("Creating new chat after deleting the last one");
-                    const { createRoom } = await import("@/lib/socket");
                     const newRoomId = await createRoom();
 
                     // Minor delay to allow backend to set up the room
