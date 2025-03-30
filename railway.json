@@ -7,6 +7,6 @@
   "deploy": {
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
-    "startCommand": "vite preview --port $PORT"
+    "startCommand": "vite preview --port 8080"
   }
 }
