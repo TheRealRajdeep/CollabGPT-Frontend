@@ -10,8 +10,9 @@ export default defineConfig({
     outDir: 'dist'
   },
   preview: {
-    port: process.env.PORT ? parseInt(process.env.PORT) : 8080,
-    allowedHosts: ['*']
+    host: "0.0.0.0",
+    port: 8080,
+    allowedHosts: ["collabgpt-frontend-production.up.railway.app"]
   },
   resolve: {
     alias: {
