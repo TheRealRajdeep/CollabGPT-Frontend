@@ -4,6 +4,7 @@ import type { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { SparkleEffect } from "@/components/ui/SparkleEffect";
 import AboutMeModal from "@/components/ui/AboutMeModal";
+import MobileBlocker from "@/components/MobileBlocker";
 
 interface LandingPageProps {
     user: User | null;
@@ -17,6 +18,7 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showAboutCard, setShowAboutCard] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const words = ["Friends", "Family", "Colleagues"];
 
     useEffect(() => {
@@ -24,6 +26,24 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
             navigate("/chat");
         }
     }, [user, navigate]);
+
+    useEffect(() => {
+        // Check if the user is on a mobile device
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768 ||
+                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            setIsMobile(mobile);
+        };
+
+        // Initial check
+        checkMobile();
+
+        // Add event listener for window resize
+        window.addEventListener('resize', checkMobile);
+
+        // Cleanup event listener
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -40,6 +60,11 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
     const toggleAboutCard = () => {
         setShowAboutCard(prev => !prev);
     };
+
+    // If the user is on a mobile device, show the mobile blocker
+    if (isMobile) {
+        return <MobileBlocker />;
+    }
 
     return (
         <div className="min-h-screen bg-gray-950 text-white w-full flex">

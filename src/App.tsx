@@ -5,6 +5,7 @@ import type { User } from "firebase/auth";
 import LandingPage from "@/pages/LandingPage";
 import ChatRoom from "@/pages/ChatRoom";
 import { disconnectSocket } from "@/lib/socket";
+import MobileBlocker from "@/components/MobileBlocker";
 
 interface ProtectedRouteProps {
   user: User | null;
@@ -50,8 +51,22 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [authChecked, setAuthChecked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if the user is on a mobile device
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(mobile);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+
     // Set up auth state listener
     const unsubscribe = onAuthChanged((authUser) => {
       setUser(authUser);
@@ -61,6 +76,7 @@ function App() {
 
     // Cleanup subscription on unmount
     return () => {
+      window.removeEventListener('resize', checkMobile);
       unsubscribe();
       disconnectSocket(); // Disconnect socket when app unmounts
     };
@@ -95,6 +111,11 @@ function App() {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
       </div>
     );
+  }
+
+  // If user is on a mobile device, show the mobile blocker regardless of the route
+  if (isMobile) {
+    return <MobileBlocker />;
   }
 
   return (
