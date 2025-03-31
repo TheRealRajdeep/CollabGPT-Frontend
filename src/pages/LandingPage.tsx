@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import type { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { SparkleEffect } from "@/components/ui/SparkleEffect";
+import AboutMeModal from "@/components/ui/AboutMeModal";
 
 interface LandingPageProps {
     user: User | null;
@@ -17,6 +16,7 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
     const navigate = useNavigate();
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [showAboutCard, setShowAboutCard] = useState(false);
     const words = ["Friends", "Family", "Colleagues"];
 
     useEffect(() => {
@@ -36,6 +36,10 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
 
         return () => clearInterval(interval);
     }, []);
+
+    const toggleAboutCard = () => {
+        setShowAboutCard(prev => !prev);
+    };
 
     return (
         <div className="min-h-screen bg-gray-950 text-white w-full flex">
@@ -59,20 +63,28 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
                 {/* Main Content */}
                 <div className="flex-grow flex flex-col justify-center mb-15 ml-10">
                     <img src="/ghibli-art.png" alt="Ghibli Art" className="absolute top-0 left-0 w-full h-full object-cover opacity-10 z-0" />
-                    <h1 className="text-[3.5rem] font-bold italic mb-4">
-                        AI with{" "}
-                        <span className={`inline-block relative ${isAnimating ? 'opacity-0 transform -translate-y-4 transition-all duration-500' : 'opacity-100 transform translate-y-0 transition-all duration-500'}`}>
-                            {words[currentWordIndex]}
-                        </span>
-                    </h1>
-                    <p className="text-xl italic text-muted-foreground">
-                        A Collaborative AI experience for you and your loved ones 💖
-                    </p>
+                    <div className="z-5">
+                        <h1 className="text-[3.5rem] font-bold italic mb-4">
+                            AI with{" "}
+                            <span className={`inline-block relative ${isAnimating ? 'opacity-0 transform -translate-y-4 transition-all duration-500' : 'opacity-100 transform translate-y-0 transition-all duration-500'}`}>
+                                {words[currentWordIndex]}
+                            </span>
+                        </h1>
+                        <p className="text-xl italic text-muted-foreground">
+                            A Collaborative AI experience for you and your loved ones 💖
+                        </p>
+                    </div>
                 </div>
 
                 {/* Optional footer content for the left section */}
-                <div className="mt-8">
-                    {/* You can add any footer content here if needed */}
+                <div className="mt-8 z-5">
+                    <Button
+                        variant="ghost"
+                        onClick={toggleAboutCard}
+                        className="text-gray-400 hover:text-white"
+                    >
+                        About Me
+                    </Button>
                 </div>
             </div>
 
@@ -103,7 +115,7 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
                         ) : (
                             <>
                                 {/* Google Sign In */}
-                                <div className="relative">
+                                <div className="relative pt-5">
                                     <SparkleEffect isActive={isLoading} count={12} />
                                     <Button
                                         variant="outline"
@@ -120,13 +132,13 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
                                     </Button>
                                 </div>
 
-                                <div className="flex items-center gap-4">
+                                {/* <div className="flex items-center gap-4">
                                     <Separator className="flex-1" />
                                     <p className="text-sm p-2 rounded-2xl bg-white text-black font-semibold">OR</p>
                                     <Separator className="flex-1" />
-                                </div>
+                                </div> */}
 
-                                {/* Email Form */}
+                                {/* Email Form
                                 <div className="space-y-4">
                                     <Input
                                         type="email"
@@ -136,7 +148,7 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
                                     <Button className="w-full h-12 text-base bg-white text-black">
                                         Continue with email
                                     </Button>
-                                </div>
+                                </div> */}
 
                                 {/* Terms */}
                                 <p className="text-sm text-muted-foreground text-center">
@@ -158,6 +170,9 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
                 {/* Empty footer space to match left section */}
                 <div className="h-8"></div>
             </div>
+
+            {/* About Me Modal Component */}
+            <AboutMeModal isOpen={showAboutCard} onClose={toggleAboutCard} />
         </div>
     );
 }
