@@ -94,7 +94,7 @@ function LandingPage({ user, isLoading, onGoogleSignIn, onSignOut }: LandingPage
                 <div className="h-10"></div>
 
                 {/* Auth content - centered vertically */}
-                <div className="flex-grow flex items-center justify-center">
+                <div className="flex-grow mb-10 flex items-center justify-center">
                     <div className="w-full max-w-md space-y-6">
                         {user ? (
                             <div className="space-y-4">
