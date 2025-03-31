@@ -44,7 +44,7 @@ export function ShareDialog({ roomId, isOpen, onClose }: ShareDialogProps) {
                                 readOnly
                                 className="bg-gray-800 border-gray-700 text-white"
                             />
-                            <Button onClick={copyToClipboard} className="w-10 h-10 p-0 flex items-center justify-center">
+                            <Button onClick={copyToClipboard} className="w-10 h-10 p-0 flex text-white border-1 items-center justify-center">
                                 {copied ? <Check size={16} /> : <Copy size={16} />}
                             </Button>
                         </div>
@@ -55,12 +55,12 @@ export function ShareDialog({ roomId, isOpen, onClose }: ShareDialogProps) {
                                 <span className="text-sm font-medium">Room ID</span>
                             </div>
                             <div className="bg-gray-800 p-2 rounded border border-gray-700">
-                                <code className="text-xs">{roomId}</code>
+                                <code className="text-white text-xs">{roomId}</code>
                             </div>
                         </div>
                     </div>
 
-                    <div className="mt-6 flex justify-end">
+                    <div className="border-white text-white mt-6 flex justify-end">
                         <Button variant="outline" onClick={onClose}>
                             Close
                         </Button>

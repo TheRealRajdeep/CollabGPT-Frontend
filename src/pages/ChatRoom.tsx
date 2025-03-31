@@ -552,9 +552,9 @@ const ChatRoom = ({ user, onSignOut, roomId: initialRoomId }: ChatRoomProps) => 
                         </div>
                     </div>
                     <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        className="flex gap-2 items-center"
+                        className="flex gap-2 items-center text-blue-400 hover:text-blue-300 hover:bg-blue-900/30 transition-colors"
                         onClick={() => setShareDialogOpen(true)}
                     >
                         <Share2 size={16} />
@@ -679,12 +679,12 @@ const ChatRoom = ({ user, onSignOut, roomId: initialRoomId }: ChatRoomProps) => 
                 {/* Input Area */}
                 <div className="p-4 border-t border-gray-800">
                     <form onSubmit={handleSubmit} className="relative flex gap-2">
-                        <div className="relative w-full">
+                        <div className="flex w-full items-end space-x-2">
                             <textarea
                                 value={inputValue}
                                 onChange={handleInputChange}
                                 placeholder="Type your message here..."
-                                className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white resize-none min-h-[50px] max-h-[200px] p-4 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-lg transition-all"
+                                className="flex-1 rounded-lg bg-gray-800 border border-gray-700 text-white resize-none min-h-[50px] max-h-[200px] p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-lg transition-all"
                                 disabled={isLoading}
                                 rows={1}
                                 style={{ height: 'auto', overflowY: 'hidden' }}
@@ -719,7 +719,7 @@ const ChatRoom = ({ user, onSignOut, roomId: initialRoomId }: ChatRoomProps) => 
                             <Button
                                 type="submit"
                                 disabled={inputValue.trim() === "" || isLoading}
-                                className="absolute right-7 bottom-5 bg-blue-600 hover:bg-blue-700 flex-shrink-0 rounded-full p-2 h-auto w-auto"
+                                className="bg-blue-600 hover:bg-blue-700 flex-shrink-0 rounded-md p-2 h-[53px] w-[53px] mb-[1px]"
                             >
                                 {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send size={16} />}
                             </Button>
