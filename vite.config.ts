@@ -12,7 +12,7 @@ export default defineConfig({
   preview: {
     host: "0.0.0.0",
     port: 8080,
-    allowedHosts: ["collabgpt-frontend-production.up.railway.app"]
+    allowedHosts: ["collabgpt-frontend-production-84cb.up.railway.app"]
   },
   resolve: {
     alias: {
