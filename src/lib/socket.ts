@@ -47,7 +47,7 @@ let socket: Socket | null = null;
 let currentRoomId: string | null = null; // Track the current room
 
 // Get the socket server URL from environment variables or use default
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://collabgpt-backend.vercel.app';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8080';
 
 // Initialize socket connection with enhanced connection handling
 export const initSocket = (): Socket => {
